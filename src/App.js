@@ -59,7 +59,7 @@ function App() {
             <b>1205 $</b>
           </div>
 
-          <button className="orderBtn">Order</button>
+          <button className="greenBtn">Order</button>
         </div>
       </div>
 
