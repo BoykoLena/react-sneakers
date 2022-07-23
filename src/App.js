@@ -23,7 +23,7 @@ function App() {
       <div className="content p-40">
         <h1 className="mb-40">All sneakers</h1>
 
-        <div className="d-flex justify-between">
+        <div className="d-flex flex-wrap">
           <div className="card">
             <img
               width={135}
