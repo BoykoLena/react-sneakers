@@ -16,6 +16,7 @@ body {
   border-radius: 20px;
   max-width: 1080px;
   margin: 50px auto;
+  cursor: default;
 }
 
 header {
@@ -126,6 +127,8 @@ header {
 
 .items {
   flex: 1;
+  overflow: auto;
+  margin-bottom: 40px;
 }
 
 .cartItem {
@@ -160,6 +163,6 @@ header {
   transition: all 200ms ease-in-out;
 
   &:hover {
-    background: salmon;
+    background: green;
   }
 }
