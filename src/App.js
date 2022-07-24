@@ -4,24 +4,24 @@ import Drawer from "./components/Drawer";
 
 const arr = [
   {
-    name: "Nike 1",
-    price: 109,
-    imageUrl: "./img/sneakers/1.png",
+    name: "Nike Blazer Low 77 Vintage White Black",
+    price: 129,
+    imageUrl: "./img/sneakers/1.webp",
   },
   {
-    name: "Nike 2",
+    name: "Nike Blazer Mid 77 White Celestine Blue",
     price: 159,
-    imageUrl: "./img/sneakers/2.png",
+    imageUrl: "./img/sneakers/2.webp",
   },
   {
-    name: "Converse 1",
-    price: 99,
-    imageUrl: "./img/sneakers/3.png",
-  },
-  {
-    name: "Nike 3",
+    name: "New Balance 327 Black Grey",
     price: 209,
-    imageUrl: "./img/sneakers/4.png",
+    imageUrl: "./img/sneakers/3.webp",
+  },
+  {
+    name: "Adidas Samba Triple White",
+    price: 169,
+    imageUrl: "./img/sneakers/4.webp",
   },
 ];
 
