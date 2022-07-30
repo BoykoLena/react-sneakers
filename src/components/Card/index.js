@@ -3,15 +3,25 @@ import styles from "./Card.module.scss";
 
 export default function Card(props) {
   const [add, setAdd] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   const onClickPlus = () => {
-    setAdd(true);
+    setAdd(!add);
+  };
+
+  const onClickFavorite = () => {
+    setFavorite(!favorite);
   };
 
   return (
     <div className={styles.card}>
-      <button className={styles.Btn} onClick={props.onFavorite}>
-        <img width={20} height={20} src="img/heart-unliked.png" alt="unliked" />
+      <button className={styles.Btn} onClick={onClickFavorite}>
+        <img
+          width={20}
+          height={20}
+          src={favorite ? "img/heart-liked.png" : "img/heart-unliked.png"}
+          alt="unliked"
+        />
       </button>
       <img width={135} height={115} src={props.imageUrl} alt="sneakers" />
       <h5>{props.title}</h5>
