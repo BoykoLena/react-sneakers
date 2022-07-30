@@ -47,6 +47,8 @@ function App() {
                 title={obj.name}
                 price={obj.price}
                 imageUrl={obj.imageUrl}
+                onFavorite={() => console.log("Закладка")}
+                onPlus={() => console.log("Плюс")}
               />
             );
           })}
