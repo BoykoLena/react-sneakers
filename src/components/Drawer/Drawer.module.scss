@@ -39,7 +39,7 @@
   transition: all 200ms ease-in-out;
 
   &:hover {
-    opacity: 1;
+    border: 1px solid grey;
   }
 }
 
@@ -58,10 +58,6 @@
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 20px;
-
-  img {
-    margin-right: 10px;
-  }
 
   p {
     margin: 0;
