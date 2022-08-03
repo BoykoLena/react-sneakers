@@ -11,18 +11,23 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
+    console.log("hello");
     axios
       .get("https://62e634f0de23e2637928dffd.mockapi.io/items")
-      .then((res) => setItems(res.data));
-
+      .then((res) => {
+        setItems(res.data);
+      });
     axios
       .get("https://62e634f0de23e2637928dffd.mockapi.io/cart")
-      .then((res) => setCartItems(res.data));
+      .then((res) => {
+        setCartItems(res.data);
+      });
   }, []);
 
   const onAddToCart = (obj) => {
     axios.post("https://62e634f0de23e2637928dffd.mockapi.io/cart", obj);
     setCartItems((prev) => [...prev, obj]);
+    // console.log(cartItems);
   };
 
   const onRemoveItem = (id) => {
