@@ -1,12 +1,14 @@
 import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import { Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -24,7 +26,7 @@ function App() {
       .then((res) => {
         setCartItems(res.data);
       });
-  }, [cartOpen]);
+  }, []);
 
   const onAddToCart = (obj) => {
     axios.post("https://62e634f0de23e2637928dffd.mockapi.io/cart", obj);
@@ -34,6 +36,11 @@ function App() {
   const onRemoveItem = (id) => {
     axios.delete(`https://62e634f0de23e2637928dffd.mockapi.io/cart/${id}`);
     setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const onAddToFavorite = (obj) => {
+    axios.post("https://62e634f0de23e2637928dffd.mockapi.io/favorites", obj);
+    setFavorites((prev) => [...prev, obj]);
   };
 
   const onChangeSearchInput = (event) => {
@@ -93,6 +100,7 @@ function App() {
                   title={item.name}
                   price={item.price}
                   imageUrl={item.imageUrl}
+                  onFavorite={(obj) => onAddToFavorite(obj)}
                   onPlus={(obj) => onAddToCart(obj)}
                 />
               );

@@ -1,19 +1,19 @@
 import styles from "./Drawer.module.scss";
 
-function Drawer(props) {
+function Drawer({ items = [], onClose, onRemove }) {
   return (
     <div className={styles.overlay}>
       <div className={styles.drawer}>
         <div className="d-flex justify-between align-center mb-30">
           <h2>Bag</h2>
-          <button className={styles.button} onClick={props.onClose}>
+          <button className={styles.button} onClick={onClose}>
             <img width={15} height={15} src="img/x.png" alt="close" />
           </button>
         </div>
 
-        {props.items.length > 0 ? (
+        {items.length > 0 ? (
           <div className={styles.items}>
-            {props.items.map((obj, index) => (
+            {items.map((obj, index) => (
               <div key={index} className={styles.cartItem}>
                 <img width={70} height={70} src={obj.imageUrl} alt="sneakers" />
                 <div className="mr-10 text-center">
@@ -21,9 +21,14 @@ function Drawer(props) {
                   <b>{obj.price} $</b>
                 </div>
                 <div>
-                  <button className={styles.button}>
+                  <button
+                    onClick={() => {
+                      console.log(obj.id);
+                      onRemove(obj.id);
+                    }}
+                    className={styles.button}
+                  >
                     <img
-                      onClick={() => props.onRemove(obj.id)}
                       width={15}
                       height={15}
                       src="img/delete.png"
@@ -52,7 +57,7 @@ function Drawer(props) {
           <b>1205 $</b>
         </div>
 
-        {props.items.length > 0 ? (
+        {items.length > 0 ? (
           <button className={styles.greenBtn}>Order</button>
         ) : (
           <button className={styles.disableBtn} disabled={true}>
