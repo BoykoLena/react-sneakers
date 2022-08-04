@@ -22,7 +22,6 @@ function Drawer(props) {
                 </div>
                 <div>
                   <button className={styles.button}>
-                    {/* {console.log(obj)} */}
                     <img
                       onClick={() => props.onRemove(obj.id)}
                       width={15}
