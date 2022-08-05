@@ -44,6 +44,8 @@ function App() {
         let item = cartItems.find((item) => {
           if (item.number === obj.number) {
             return item;
+          } else {
+            return null;
           }
         });
         axios.delete(
@@ -71,6 +73,7 @@ function App() {
 
   const onAddToFavorite = async (obj) => {
     try {
+      console.log(favorites);
       if (
         favorites.length > 0 &&
         favorites.find((favObj) => favObj.number === obj.number)
@@ -78,10 +81,15 @@ function App() {
         let favObj = favorites.find((favObj) => {
           if (favObj.number === obj.number) {
             return favObj;
+          } else {
+            return null;
           }
         });
         axios.delete(
           `https://62e634f0de23e2637928dffd.mockapi.io/favorites/${favObj.id}`
+        );
+        setFavorites((prev) =>
+          prev.filter((item) => item.number !== obj.number)
         );
       } else {
         const { data } = await axios.post(
