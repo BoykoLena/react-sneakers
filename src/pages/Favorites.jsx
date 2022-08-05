@@ -13,6 +13,7 @@ function Favorites({ items, onAddToFavorite }) {
             <Card
               key={index}
               id={item.id}
+              number={item.number}
               title={item.title}
               price={item.price}
               imageUrl={item.imageUrl}

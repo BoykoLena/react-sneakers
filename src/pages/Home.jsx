@@ -7,6 +7,7 @@ function Home({
   clearSearchValue,
   onAddToCart,
   onAddToFavorite,
+  cartItems,
 }) {
   return (
     <div className="content p-40">
@@ -43,8 +44,10 @@ function Home({
                 key={index}
                 title={item.name}
                 price={item.price}
+                number={item.number}
                 id={item.id}
                 imageUrl={item.imageUrl}
+                added={cartItems.some((obj) => obj.number === item.number)}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
               />

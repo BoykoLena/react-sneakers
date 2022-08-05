@@ -14,36 +14,49 @@ function App() {
   const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
-    axios
-      .get("https://62e634f0de23e2637928dffd.mockapi.io/items")
-      .then((res) => {
-        setItems(res.data);
-      });
-  }, []);
+    async function fetchData() {
+      const itemsResp = await axios.get(
+        "https://62e634f0de23e2637928dffd.mockapi.io/items"
+      );
 
-  useEffect(() => {
-    axios
-      .get("https://62e634f0de23e2637928dffd.mockapi.io/cart")
-      .then((res) => {
-        setCartItems(res.data);
-      });
-  }, []);
+      const favoriteResp = await axios.get(
+        "https://62e634f0de23e2637928dffd.mockapi.io/favorites"
+      );
 
-  useEffect(() => {
-    axios
-      .get("https://62e634f0de23e2637928dffd.mockapi.io/favorites")
-      .then((res) => {
-        setFavorites(res.data);
-      });
+      const cartResp = await axios.get(
+        "https://62e634f0de23e2637928dffd.mockapi.io/cart"
+      );
+
+      setCartItems(cartResp.data);
+      setFavorites(favoriteResp.data);
+      setItems(itemsResp.data);
+    }
+
+    fetchData();
   }, []);
 
   const onAddToCart = async (obj) => {
     try {
-      const { data } = await axios.post(
-        "https://62e634f0de23e2637928dffd.mockapi.io/cart",
-        obj
-      );
-      setCartItems((prev) => [...prev, data]);
+      if (
+        cartItems.length > 0 &&
+        cartItems.find((item) => item.number === obj.number)
+      ) {
+        let item = cartItems.find((item) => {
+          return item;
+        });
+        axios.delete(
+          `https://62e634f0de23e2637928dffd.mockapi.io/cart/${item.id}`
+        );
+        setCartItems((prev) =>
+          prev.filter((item) => item.number !== obj.number)
+        );
+      } else {
+        const { data } = await axios.post(
+          "https://62e634f0de23e2637928dffd.mockapi.io/cart",
+          obj
+        );
+        setCartItems((prev) => [...prev, data]);
+      }
     } catch (error) {
       alert("Something went wrong :(");
     }
@@ -99,6 +112,7 @@ function App() {
           element={
             <Home
               items={items}
+              cartItems={cartItems}
               searchValue={searchValue}
               onChangeSearchInput={onChangeSearchInput}
               clearSearchValue={clearSearchValue}

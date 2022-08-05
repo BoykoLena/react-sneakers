@@ -4,22 +4,24 @@ import styles from "./Card.module.scss";
 export default function Card({
   id,
   title,
+  number,
   price,
   imageUrl,
   onPlus,
   onFavorite,
   favorited = false,
+  added = false,
 }) {
-  const [add, setAdd] = useState(false);
+  const [add, setAdd] = useState(added);
   const [favorite, setFavorite] = useState(favorited);
 
   const onClickPlus = () => {
-    onPlus({ id, title, price, imageUrl });
+    onPlus({ id, number, title, price, imageUrl });
     setAdd(!add);
   };
 
   const onClickFavorite = () => {
-    onFavorite({ id, title, price, imageUrl });
+    onFavorite({ id, number, title, price, imageUrl });
     setFavorite(!favorite);
   };
 
