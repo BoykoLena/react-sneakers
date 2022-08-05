@@ -42,7 +42,9 @@ function App() {
         cartItems.find((item) => item.number === obj.number)
       ) {
         let item = cartItems.find((item) => {
-          return item;
+          if (item.number === obj.number) {
+            return item;
+          }
         });
         axios.delete(
           `https://62e634f0de23e2637928dffd.mockapi.io/cart/${item.id}`
@@ -69,9 +71,17 @@ function App() {
 
   const onAddToFavorite = async (obj) => {
     try {
-      if (favorites.find((favObj) => favObj.id === obj.id)) {
+      if (
+        favorites.length > 0 &&
+        favorites.find((favObj) => favObj.number === obj.number)
+      ) {
+        let favObj = favorites.find((favObj) => {
+          if (favObj.number === obj.number) {
+            return favObj;
+          }
+        });
         axios.delete(
-          `https://62e634f0de23e2637928dffd.mockapi.io/favorites/${obj.id}`
+          `https://62e634f0de23e2637928dffd.mockapi.io/favorites/${favObj.id}`
         );
       } else {
         const { data } = await axios.post(
@@ -113,6 +123,7 @@ function App() {
             <Home
               items={items}
               cartItems={cartItems}
+              favorites={favorites}
               searchValue={searchValue}
               onChangeSearchInput={onChangeSearchInput}
               clearSearchValue={clearSearchValue}

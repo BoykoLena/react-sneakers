@@ -8,6 +8,7 @@ function Home({
   onAddToCart,
   onAddToFavorite,
   cartItems,
+  favorites,
 }) {
   return (
     <div className="content p-40">
@@ -48,6 +49,7 @@ function Home({
                 id={item.id}
                 imageUrl={item.imageUrl}
                 added={cartItems.some((obj) => obj.number === item.number)}
+                favorited={favorites.some((obj) => obj.number === item.number)}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
               />
