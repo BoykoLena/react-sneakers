@@ -1,9 +1,9 @@
-import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Home from "./pages/Home";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -63,50 +63,21 @@ function App() {
       )}
       <Header onClickCart={() => setCartOpen(true)} />
 
-      <div className="content p-40">
-        <div className="d-flex align-center justify-between mb-40">
-          <h1>
-            {searchValue ? `Search for: "${searchValue}"` : "All sneakers"}
-          </h1>
-          <div className="d-flex align-center search-block ">
-            <img width={25} height={25} src="/img/search.png" alt="search" />
-            <input
-              placeholder="search..."
-              value={searchValue}
-              onChange={onChangeSearchInput}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              items={items}
+              searchValue={searchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              clearSearchValue={clearSearchValue}
+              onAddToCart={onAddToCart}
+              onAddToFavorite={onAddToFavorite}
             />
-            {searchValue ? (
-              <img
-                onClick={clearSearchValue}
-                className="clearSearch"
-                width={20}
-                height={20}
-                src="/img/delete.png"
-                alt="delete"
-              />
-            ) : null}
-          </div>
-        </div>
-
-        <div className="d-flex flex-wrap">
-          {items
-            .filter((item) =>
-              item.name.toLowerCase().includes(searchValue.toLowerCase())
-            )
-            .map((item, index) => {
-              return (
-                <Card
-                  key={index}
-                  title={item.name}
-                  price={item.price}
-                  imageUrl={item.imageUrl}
-                  onFavorite={(obj) => onAddToFavorite(obj)}
-                  onPlus={(obj) => onAddToCart(obj)}
-                />
-              );
-            })}
-        </div>
-      </div>
+          }
+        ></Route>
+      </Routes>
     </div>
   );
 }
