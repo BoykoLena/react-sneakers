@@ -23,7 +23,6 @@ function Drawer({ items = [], onClose, onRemove }) {
                 <div>
                   <button
                     onClick={() => {
-                      console.log(obj.id);
                       onRemove(obj.id);
                     }}
                     className={styles.button}

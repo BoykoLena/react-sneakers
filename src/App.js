@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -28,9 +29,20 @@ function App() {
       });
   }, []);
 
-  const onAddToCart = (obj) => {
-    axios.post("https://62e634f0de23e2637928dffd.mockapi.io/cart", obj);
-    setCartItems((prev) => [...prev, obj]);
+  useEffect(() => {
+    axios
+      .get("https://62e634f0de23e2637928dffd.mockapi.io/favorites")
+      .then((res) => {
+        setFavorites(res.data);
+      });
+  }, []);
+
+  const onAddToCart = async (obj) => {
+    const { data } = await axios.post(
+      "https://62e634f0de23e2637928dffd.mockapi.io/cart",
+      obj
+    );
+    setCartItems((prev) => [...prev, data]);
   };
 
   const onRemoveItem = (id) => {
@@ -38,9 +50,19 @@ function App() {
     setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const onAddToFavorite = (obj) => {
-    axios.post("https://62e634f0de23e2637928dffd.mockapi.io/favorites", obj);
-    setFavorites((prev) => [...prev, obj]);
+  const onAddToFavorite = async (obj) => {
+    if (favorites.find((favObj) => favObj.id === obj.id)) {
+      axios.delete(
+        `https://62e634f0de23e2637928dffd.mockapi.io/favorites/${obj.id}`
+      );
+      // setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+    } else {
+      const { data } = await axios.post(
+        "https://62e634f0de23e2637928dffd.mockapi.io/favorites",
+        obj
+      );
+      setFavorites((prev) => [...prev, data]);
+    }
   };
 
   const onChangeSearchInput = (event) => {
@@ -66,6 +88,7 @@ function App() {
       <Routes>
         <Route
           path="/"
+          exact
           element={
             <Home
               items={items}
@@ -75,6 +98,14 @@ function App() {
               onAddToCart={onAddToCart}
               onAddToFavorite={onAddToFavorite}
             />
+          }
+        ></Route>
+
+        <Route
+          path="/favorites"
+          exact
+          element={
+            <Favorites items={favorites} onAddToFavorite={onAddToFavorite} />
           }
         ></Route>
       </Routes>

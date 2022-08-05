@@ -43,6 +43,7 @@ function Home({
                 key={index}
                 title={item.name}
                 price={item.price}
+                id={item.id}
                 imageUrl={item.imageUrl}
                 onFavorite={(obj) => onAddToFavorite(obj)}
                 onPlus={(obj) => onAddToCart(obj)}
