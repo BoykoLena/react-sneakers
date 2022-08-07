@@ -12,6 +12,7 @@ function App() {
   const [favorites, setFavorites] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -30,6 +31,7 @@ function App() {
       setCartItems(cartResp.data);
       setFavorites(favoriteResp.data);
       setItems(itemsResp.data);
+      setIsReady(true);
     }
 
     fetchData();
@@ -137,6 +139,7 @@ function App() {
               clearSearchValue={clearSearchValue}
               onAddToCart={onAddToCart}
               onAddToFavorite={onAddToFavorite}
+              isReady={isReady}
             />
           }
         ></Route>

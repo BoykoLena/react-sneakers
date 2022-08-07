@@ -1,9 +1,10 @@
 import { useState } from "react";
 import styles from "./Card.module.scss";
+import ContentLoader from "react-content-loader";
 
 export default function Card({
   id,
-  title,
+  name,
   number,
   price,
   imageUrl,
@@ -11,46 +12,66 @@ export default function Card({
   onFavorite,
   favorited = false,
   added = false,
+  loaded = false,
 }) {
   const [add, setAdd] = useState(added);
   const [favorite, setFavorite] = useState(favorited);
 
   const onClickPlus = () => {
-    onPlus({ id, number, title, price, imageUrl });
+    onPlus({ id, number, name, price, imageUrl });
     setAdd(!add);
   };
 
   const onClickFavorite = () => {
-    onFavorite({ id, number, title, price, imageUrl });
+    onFavorite({ id, number, name, price, imageUrl });
     setFavorite(!favorite);
   };
 
   return (
     <div className={styles.card}>
-      <button className={styles.Btn} onClick={onClickFavorite}>
-        <img
-          width={20}
-          height={20}
-          src={favorite ? "img/heart-liked.png" : "img/heart-unliked.png"}
-          alt="unliked"
-        />
-      </button>
-      <img width={135} height={115} src={imageUrl} alt="sneakers" />
-      <h5>{title}</h5>
-      <div className="d-flex justify-between align-center">
-        <div className="d-flex flex-column">
-          <span>Price: </span>
-          <b>{price} $</b>
-        </div>
-        <button className={styles.Btn} onClick={onClickPlus}>
-          <img
-            width={20}
-            height={20}
-            src={add ? "img/checked.png" : "img/plus.png"}
-            alt="plus"
-          />
-        </button>
-      </div>
+      {loaded ? (
+        <>
+          <button className={styles.Btn} onClick={onClickFavorite}>
+            <img
+              width={20}
+              height={20}
+              src={favorite ? "img/heart-liked.png" : "img/heart-unliked.png"}
+              alt="unliked"
+            />
+          </button>
+          <img width={135} height={115} src={imageUrl} alt="sneakers" />
+          <h5>{name}</h5>
+          <div className="d-flex justify-between align-center">
+            <div className="d-flex flex-column">
+              <span>Price: </span>
+              <b>{price} $</b>
+            </div>
+            <button className={styles.Btn} onClick={onClickPlus}>
+              <img
+                width={20}
+                height={20}
+                src={add ? "img/checked.png" : "img/plus.png"}
+                alt="plus"
+              />
+            </button>
+          </div>
+        </>
+      ) : (
+        <ContentLoader
+          speed={2}
+          width={163}
+          height={236}
+          viewBox="0 0 163 236"
+          backgroundColor="#f3f3f3"
+          foregroundColor="#ecebeb"
+        >
+          <rect x="0" y="0" rx="10" ry="10" width="163" height="125" />
+          <rect x="0" y="140" rx="5" ry="5" width="163" height="40" />
+          <rect x="0" y="190" rx="5" ry="5" width="110" height="20" />
+          <rect x="0" y="216" rx="5" ry="5" width="110" height="20" />
+          <rect x="120" y="190" rx="5" ry="5" width="50" height="66" />
+        </ContentLoader>
+      )}
     </div>
   );
 }

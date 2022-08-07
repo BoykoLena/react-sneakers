@@ -17,7 +17,7 @@ function Drawer({ items = [], onClose, onRemove }) {
               <div key={index} className={styles.cartItem}>
                 <img width={70} height={70} src={obj.imageUrl} alt="sneakers" />
                 <div className="mr-10 text-center">
-                  <p>{obj.title}</p>
+                  <p>{obj.name}</p>
                   <b>{obj.price} $</b>
                 </div>
                 <div>

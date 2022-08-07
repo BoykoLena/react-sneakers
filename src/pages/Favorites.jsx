@@ -14,11 +14,12 @@ function Favorites({ items, onAddToFavorite }) {
               key={index}
               id={item.id}
               number={item.number}
-              title={item.title}
+              name={item.name}
               price={item.price}
               imageUrl={item.imageUrl}
               onFavorite={onAddToFavorite}
               favorited={true}
+              loaded={true}
             />
           );
         })}
