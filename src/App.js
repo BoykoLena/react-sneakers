@@ -8,7 +8,7 @@ import axios from "axios";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 
-const AppContext = React.createContext({});
+export const AppContext = React.createContext({});
 
 function App() {
   const [items, setItems] = useState([]);
@@ -118,7 +118,7 @@ function App() {
   };
 
   return (
-    <AppContext.Provider value={(items, cartItems, favorites)}>
+    <AppContext.Provider value={{ items, cartItems, favorites }}>
       <div className="wrapper clear">
         {cartOpen && (
           <Drawer
@@ -151,9 +151,7 @@ function App() {
           <Route
             path="/favorites"
             exact
-            element={
-              <Favorites items={favorites} onAddToFavorite={onAddToFavorite} />
-            }
+            element={<Favorites onAddToFavorite={onAddToFavorite} />}
           ></Route>
         </Routes>
       </div>

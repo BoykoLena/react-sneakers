@@ -16,24 +16,17 @@ function Home({
       item.name.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-    return (isReady ? filtredItems : [...Array(12)]).map((item, index) => {
-      return (
-        <Card
-          key={index}
-          {...item}
-          // title={item.name}
-          // price={item.price}
-          // number={item.number}
-          // id={item.id}
-          // imageUrl={item.imageUrl}
-          added={cartItems.some((obj) => obj.number === item.number)}
-          favorited={favorites.some((obj) => obj.number === item.number)}
-          onFavorite={(obj) => onAddToFavorite(obj)}
-          onPlus={(obj) => onAddToCart(obj)}
-          loaded={isReady}
-        />
-      );
-    });
+    return (isReady ? filtredItems : [...Array(12)]).map((item, index) => (
+      <Card
+        key={index}
+        {...item}
+        added={cartItems.some((obj) => obj.number === item.number)}
+        favorited={favorites.some((obj) => obj.number === item.number)}
+        onFavorite={(obj) => onAddToFavorite(obj)}
+        onPlus={(obj) => onAddToCart(obj)}
+        loaded={isReady}
+      />
+    ));
   };
   return (
     <div className="content p-40">
