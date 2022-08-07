@@ -1,8 +1,10 @@
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+
 import { Route, Routes } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 
