@@ -117,8 +117,12 @@ function App() {
     setSearchValue("");
   };
 
+  const isItemAdded = (number) => {
+    return cartItems.some((obj) => obj.number === number);
+  };
+
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites }}>
+    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded }}>
       <div className="wrapper clear">
         {cartOpen && (
           <Drawer

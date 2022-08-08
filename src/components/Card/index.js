@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
+import React from "react";
+import { AppContext } from "../../App";
 
 export default function Card({
   id,
@@ -14,11 +16,10 @@ export default function Card({
   added = false,
   loaded = false,
 }) {
-  const [add, setAdd] = useState(added);
+  const { isItemAdded } = React.useContext(AppContext);
 
   const onClickPlus = () => {
     onPlus({ id, number, name, price, imageUrl });
-    setAdd(!add);
   };
 
   const onClickFavorite = () => {
@@ -47,7 +48,7 @@ export default function Card({
               <img
                 width={20}
                 height={20}
-                src={add ? "img/checked.png" : "img/plus.png"}
+                src={isItemAdded(number) ? "img/checked.png" : "img/plus.png"}
                 alt="plus"
               />
             </button>
