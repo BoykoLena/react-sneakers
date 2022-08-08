@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 import React from "react";
