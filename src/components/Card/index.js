@@ -15,7 +15,6 @@ export default function Card({
   loaded = false,
 }) {
   const [add, setAdd] = useState(added);
-  const [favorite, setFavorite] = useState(favorited);
 
   const onClickPlus = () => {
     onPlus({ id, number, name, price, imageUrl });
@@ -24,9 +23,7 @@ export default function Card({
 
   const onClickFavorite = () => {
     onFavorite({ id, number, name, price, imageUrl });
-    setFavorite(!favorite);
   };
-
   return (
     <div className={styles.card}>
       {loaded ? (
@@ -35,7 +32,7 @@ export default function Card({
             <img
               width={20}
               height={20}
-              src={favorite ? "img/heart-liked.png" : "img/heart-unliked.png"}
+              src={favorited ? "img/heart-liked.png" : "img/heart-unliked.png"}
               alt="unliked"
             />
           </button>
