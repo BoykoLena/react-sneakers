@@ -12,7 +12,6 @@ export default function Card({
   onPlus,
   onFavorite,
   favorited = false,
-  added = false,
   loaded = false,
 }) {
   const { isItemAdded } = React.useContext(AppContext);

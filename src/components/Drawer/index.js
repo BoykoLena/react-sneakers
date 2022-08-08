@@ -1,6 +1,40 @@
+import React from "react";
+import { useState } from "react";
+import Info from "../Card/Info";
 import styles from "./Drawer.module.scss";
+import { AppContext } from "../../App";
+import axios from "axios";
 
 function Drawer({ items = [], onClose, onRemove }) {
+  const { cartItems, setCartItems } = React.useContext(AppContext);
+  const [orderId, setOrderId] = useState(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const onClickOrder = async () => {
+    try {
+      setIsLoading(false);
+      const { data } = await axios.post(
+        "https://62e634f0de23e2637928dffd.mockapi.io/orders",
+        { items: cartItems }
+      );
+
+      for (let i = 0; i < cartItems.length; i++) {
+        const item = cartItems[i];
+        await axios.delete(
+          `https://62e634f0de23e2637928dffd.mockapi.io/cart/${item.id}`
+        );
+      }
+
+      setOrderId(data.id);
+      setIsComplete(true);
+      setCartItems([]);
+    } catch (error) {
+      alert("something went wrong :(");
+    }
+    setIsLoading(false);
+  };
+
   return (
     <div className={styles.overlay}>
       <div className={styles.drawer}>
@@ -39,15 +73,15 @@ function Drawer({ items = [], onClose, onRemove }) {
             ))}
           </div>
         ) : (
-          <div className={styles.emptyCart}>
-            <img
-              width={160}
-              height={160}
-              src="img/empty-cart.png"
-              alt="empty-cart"
-            />
-            <p>There are no items in your bag.</p>
-          </div>
+          <Info
+            image={isComplete ? "img/complete-order.png" : "img/empty-cart.png"}
+            title={isComplete ? "Your order is accepted 😊" : "Empty 🙁"}
+            description={
+              isComplete
+                ? `Code order: #${orderId}`
+                : "There are no items in your bag."
+            }
+          />
         )}
 
         <div className={styles.cartTotalBlock}>
@@ -57,7 +91,13 @@ function Drawer({ items = [], onClose, onRemove }) {
         </div>
 
         {items.length > 0 ? (
-          <button className={styles.greenBtn}>Order</button>
+          <button
+            onClick={onClickOrder}
+            className={isLoading ? styles.greenBtn : styles.disableBtn}
+            disabled={isLoading ? false : true}
+          >
+            Order
+          </button>
         ) : (
           <button className={styles.disableBtn} disabled={true}>
             Order
