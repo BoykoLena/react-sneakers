@@ -7,6 +7,7 @@ import axios from "axios";
 
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
+import Orders from "./pages/Orders";
 
 export const AppContext = React.createContext({});
 
@@ -159,6 +160,8 @@ function App() {
             exact
             element={<Favorites onAddToFavorite={onAddToFavorite} />}
           ></Route>
+
+          <Route path="/orders" exact element={<Orders />}></Route>
         </Routes>
       </div>
     </AppContext.Provider>

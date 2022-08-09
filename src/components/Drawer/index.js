@@ -11,6 +11,8 @@ function Drawer({ items = [], onClose, onRemove }) {
   const [isComplete, setIsComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0);
+
   const onClickOrder = async () => {
     try {
       setIsLoading(false);
@@ -87,7 +89,7 @@ function Drawer({ items = [], onClose, onRemove }) {
         <div className={styles.cartTotalBlock}>
           <span>Summary</span>
           <div></div>
-          <b>1205 $</b>
+          <b>{totalPrice} $</b>
         </div>
 
         {items.length > 0 ? (
